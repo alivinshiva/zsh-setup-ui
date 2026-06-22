@@ -1,0 +1,184 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root,
+[data-theme="light"] {
+  --black: #0d0d0d;
+  --gray-900: #1a1a1a;
+  --gray-800: #2a2a2a;
+  --gray-700: #404040;
+  --gray-600: #666;
+  --gray-500: #8a8a8a;
+  --gray-400: #aaa;
+  --gray-300: #ccc;
+  --gray-200: #e5e5e5;
+  --gray-100: #f0f0f0;
+  --gray-50: #f7f7f7;
+  --white: #fff;
+  --accent: #0d0d0d;
+  --max-width: 960px;
+  --bg: #fff;
+  --bg-alt: #f7f7f7;
+  --text: #1a1a1a;
+  --text-muted: #666;
+  --border: #e5e5e5;
+  --card-bg: #f7f7f7;
+  --card-border: #e5e5e5;
+  --card-shadow: rgba(0,0,0,0.04);
+  --code-bg: #fff;
+  --code-header: #f0f0f0;
+  --footer-text: #8a8a8a;
+  --btn-hover-bg: #f0f0f0;
+  --grid-line: rgba(0,0,0,0.04);
+  --scan-line: rgba(0,0,0,0.015);
+}
+
+[data-theme="dark"] {
+  --black: #f0f0f0;
+  --gray-900: #e5e5e5;
+  --gray-800: #ccc;
+  --gray-700: #aaa;
+  --gray-600: #8a8a8a;
+  --gray-500: #666;
+  --gray-400: #555;
+  --gray-300: #404040;
+  --gray-200: #333;
+  --gray-100: #2a2a2a;
+  --gray-50: #1a1a1a;
+  --white: #0d0d0d;
+  --accent: #f0f0f0;
+  --bg: #0d0d0d;
+  --bg-alt: #111;
+  --text: #e5e5e5;
+  --text-muted: #8a8a8a;
+  --border: #333;
+  --card-bg: #1a1a1a;
+  --card-border: #333;
+  --card-shadow: rgba(0,0,0,0.2);
+  --code-bg: #1a1a1a;
+  --code-header: #2a2a2a;
+  --footer-text: #666;
+  --btn-hover-bg: #2a2a2a;
+  --grid-line: rgba(255,255,255,0.03);
+  --scan-line: rgba(255,255,255,0.012);
+}
+
+html {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── Background: Terminal Grid ────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  animation: grid-pulse 8s ease-in-out infinite;
+}
+
+@keyframes grid-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* ── Background: CRT Scan Lines ───────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    var(--scan-line) 0px,
+    var(--scan-line) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* ── Floating Terminal Characters ─────────────────────────────── */
+.terminal-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  color: var(--float-chars);
+  font-size: 14px;
+  line-height: 1;
+}
+
+.terminal-bg span {
+  position: absolute;
+  animation: float-up linear infinite;
+  opacity: 0;
+  user-select: none;
+  transition: color 0.2s;
+}
+
+@keyframes float-up {
+  0% { transform: translateY(100vh); opacity: 0; }
+  5% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+@keyframes float-down {
+  0% { transform: translateY(-10vh); opacity: 0; }
+  5% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes float-drift-l {
+  0% { transform: translate(100vw, -5vh); opacity: 0; }
+  5% { opacity: 1; }
+  90% { opacity: 0.8; }
+  100% { transform: translate(-10vw, 95vh); opacity: 0; }
+}
+
+@keyframes float-drift-r {
+  0% { transform: translate(-10vw, -5vh); opacity: 0; }
+  5% { opacity: 1; }
+  90% { opacity: 0.8; }
+  100% { transform: translate(100vw, 95vh); opacity: 0; }
+}
+
+@keyframes float-diag {
+  0% { transform: translate(0, 100vh); opacity: 0; }
+  5% { opacity: 0.9; }
+  50% { opacity: 1; }
+  100% { transform: translate(60vw, -10vh); opacity: 0; }
+}
+
+code, pre {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
