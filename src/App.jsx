@@ -18,7 +18,7 @@ const floating = chars.map((c, i) => ({
 
 const features = [
   { title: 'Powerlevel10k', desc: 'Classic prompt style with git status, execution time, virtualenv, and more.' },
-  { title: 'Oh My Zsh', desc: '12 curated plugins — git, docker, npm, zoxide, extract, sudo, web-search, dirhistory & more.' },
+  { title: 'Oh My Zsh', desc: '14 curated plugins — git, docker, npm, zoxide, extract, sudo, web-search, history-substring-search, you-should-use & more.' },
   { title: 'Smart Navigation', desc: 'zoxide replaces cd with fuzzy muscle memory. fzf with Ctrl+R / Ctrl+T / Alt+C.' },
   { title: 'Syntax Highlighting', desc: 'Real-time zsh-syntax-highlighting + zsh-autosuggestions as you type.' },
   { title: 'Modern Aliases', desc: 'ls → eza with icons, lt → tree view, ff → fzf + bat preview.' },
@@ -26,6 +26,11 @@ const features = [
   { title: 'git-delta', desc: 'Syntax-highlighted git diffs with side-by-side navigation.' },
   { title: 'Performance', desc: 'History dedup, transient prompt, instant prompt. fastfetch on start.' },
   { title: 'NVM', desc: 'Node Version Manager pre-integrated. Switch Node versions seamlessly.' },
+  { title: 'fnm', desc: 'Fast Node Manager — a faster alternative to NVM, auto-detects .nvmrc.' },
+  { title: 'History Search', desc: 'history-substring-search: type a prefix, press ↑/↓ to cycle through matching history.' },
+  { title: 'Alias Reminders', desc: 'you-should-use plugin warns you when a command has an alias you forgot about.' },
+  { title: 'lazygit', desc: 'Terminal UI for git. Blazing-fast branch switching, staging, and commit management.' },
+  { title: 'lazydocker', desc: 'Docker management in the terminal — view containers, logs, images, and compose.' },
 ]
 
 const fixes = [
@@ -87,6 +92,22 @@ const testimonials = [
   { quote: 'Switched from macOS to Linux and my terminal felt identical. Cross-platform support is a lifesaver.', author: 'Priya K.', role: 'Full-Stack Developer' },
   { quote: 'The eza + bat + fzf combination is incredible. I use ff (fzf preview) dozens of times a day now.', author: 'Jordan T.', role: 'DevOps Engineer' },
 ]
+
+function StarCounter() {
+  const [stars, setStars] = useState(null)
+  useEffect(() => {
+    fetch('https://api.github.com/repos/alivinshiva/zsh-setup')
+      .then(r => r.json())
+      .then(d => setStars(d.stargazers_count))
+      .catch(() => setStars(null))
+  }, [])
+  return stars !== null ? (
+    <a href="https://github.com/alivinshiva/zsh-setup/stargazers" className="star-badge" target="_blank" rel="noopener noreferrer">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      {stars >= 1000 ? `${(stars / 1000).toFixed(1)}k` : stars}
+    </a>
+  ) : null
+}
 
 const installLog = [
   { text: 'Cloning repository...', type: 'cmd' },
@@ -243,11 +264,12 @@ function App() {
           <div className="navbar-links">
             <a href="#features">Features</a>
             <a href="#testimonials">Testimonials</a>
+            <a href="#screenshots">Screenshots</a>
             <a href="#install">Install</a>
             <a href="#usage">Usage</a>
             <a href="#troubleshooting">Troubleshooting</a>
+            <a href="#faq">FAQ</a>
             <a href="#contribute">Contribute</a>
-            <a href="#support">Support</a>
           </div>
           <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
             {theme === 'light' ? (
@@ -262,7 +284,10 @@ function App() {
       <div className="layout">
         <header id="hero" className="hero">
           <p className="hero-prompt"><span className="prompt-user">❯</span> cat zsh-setup</p>
-          <div className="hero-badge">v1.0 / MIT</div>
+          <div className="hero-badges">
+            <span className="hero-badge">v1.2 / MIT</span>
+            <StarCounter />
+          </div>
           <h1 className="hero-title">
             Your terminal,<br />
             <span className="hero-em">elevated.</span>
@@ -278,6 +303,10 @@ function App() {
             </a>
             <a href="https://github.com/alivinshiva/zsh-setup" className="btn btn-outline" target="_blank" rel="noopener noreferrer">
               View on GitHub →
+            </a>
+            <a href="https://twitter.com/intent/tweet?text=Just%20set%20up%20my%20terminal%20in%20one%20command%20with%20zsh-setup%20%F0%9F%9A%80%0A%0Abash%20%3C%24(curl%20-fsSL%20https%3A%2F%2Fraw.githubusercontent.com%2Falivinshiva%2Fzsh-setup%2Fmaster%2Finstall.sh)%0A%0Ahttps%3A%2F%2Fgithub.com%2Falivinshiva%2Fzsh-setup" className="btn btn-outline" target="_blank" rel="noopener noreferrer">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              Share on X
             </a>
           </div>
         </header>
@@ -314,6 +343,59 @@ function App() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section id="screenshots" className="section section-alt">
+          <p className="section-prompt"><span className="prompt-user">❯</span> ls screenshots/</p>
+          <h2 className="section-title">Screenshots</h2>
+          <p className="section-sub">See zsh-setup in action across different workflows.</p>
+          <div className="screenshots">
+            <div className="screenshot-card">
+              <div className="screenshot-preview">
+                <div className="screenshot-bar"><span /><span /><span /><span className="screenshot-title">~ — terminal</span></div>
+                <div className="screenshot-body">
+                  <div className="ss-line"><span className="ss-prompt">❯</span><span className="ss-cmd">cd project</span></div>
+                  <div className="ss-line"><span className="ss-prompt">~/project</span><span className="ss-cmd">ls</span></div>
+                  <div className="ss-line"><span className="ss-dir">src/</span><span className="ss-file">package.json</span><span className="ss-file">README.md</span></div>
+                  <div className="ss-line"><span className="ss-prompt">~/project</span><span className="ss-cmd">git status</span></div>
+                  <div className="ss-line"><span className="ss-branch"> main</span><span className="ss-delta">▸ modified: src/App.jsx</span></div>
+                  <div className="ss-line"><span className="ss-time">2.3s</span><span className="ss-prompt-end">❯</span></div>
+                </div>
+              </div>
+              <p className="screenshot-label">Git status with delta diff</p>
+            </div>
+            <div className="screenshot-card">
+              <div className="screenshot-preview">
+                <div className="screenshot-bar"><span /><span /><span /><span className="screenshot-title">fzf — find files</span></div>
+                <div className="screenshot-body">
+                  <div className="ss-line"><span className="ss-prompt">❯</span><span className="ss-cmd">ff</span></div>
+                  <div className="ss-line"><span className="ss-fzf-border">━━━━━━━━━━━━━━━━━━━━━━━━━━</span></div>
+                  <div className="ss-line"><span className="ss-fzf-select">▸ src/App.jsx</span></div>
+                  <div className="ss-line"><span className="ss-fzf-item">  src/App.css</span></div>
+                  <div className="ss-line"><span className="ss-fzf-item">  src/index.css</span></div>
+                  <div className="ss-line"><span className="ss-fzf-item">  index.html</span></div>
+                  <div className="ss-line"><span className="ss-fzf-border">━━━━━━━━━━━━━━━━━━━━━━━━━━</span></div>
+                  <div className="ss-line"><span className="ss-fzf-preview">import { useState } from 'react'</span></div>
+                </div>
+              </div>
+              <p className="screenshot-label">fzf fuzzy finder with bat preview</p>
+            </div>
+            <div className="screenshot-card">
+              <div className="screenshot-preview">
+                <div className="screenshot-bar"><span /><span /><span /><span className="screenshot-title">lazygit — commit</span></div>
+                <div className="screenshot-body">
+                  <div className="ss-line"><span className="ss-prompt">❯</span><span className="ss-cmd">lg</span></div>
+                  <div className="ss-line"><span className="ss-lg-header">Status (1 modified)</span></div>
+                  <div className="ss-line"><span className="ss-lg-file">M src/App.jsx</span></div>
+                  <div className="ss-line"><span className="ss-lg-header"> ── diff ──</span></div>
+                  <div className="ss-line"><span className="ss-lg-add">+  {'{'} title: 'lazygit',</span></div>
+                  <div className="ss-line"><span className="ss-lg-add">+    desc: 'Terminal UI for git' {'}'}</span></div>
+                  <div className="ss-line"><span className="ss-lg-keys">↑↓ navigate  space stage  c commit</span></div>
+                </div>
+              </div>
+              <p className="screenshot-label">lazygit TUI — stage & commit</p>
+            </div>
           </div>
         </section>
 
@@ -414,6 +496,94 @@ function App() {
           </div>
         </section>
 
+        <section id="faq" className="section section-alt">
+          <p className="section-prompt"><span className="prompt-user">❯</span> help -f</p>
+          <h2 className="section-title">FAQ</h2>
+          <p className="section-sub">Common questions about zsh-setup.</p>
+          <div className="faq-list">
+            <details className="faq-item">
+              <summary className="faq-question">Does this work with an existing .zshrc?</summary>
+              <div className="faq-answer">
+                Yes. The install script backs up your existing <code>.zshrc</code> and <code>.p10k.zsh</code> to <code>.zshrc.backup</code> / <code>.p10k.zsh.backup</code> before creating symlinks. Your old configs are never deleted.
+              </div>
+            </details>
+            <details className="faq-item">
+              <summary className="faq-question">What if I already have Oh My Zsh installed?</summary>
+              <div className="faq-answer">
+                No problem. The script detects an existing Oh My Zsh installation and skips re-installing it. It only adds Powerlevel10k and the custom plugins.
+              </div>
+            </details>
+            <details className="faq-item">
+              <summary className="faq-question">Can I use this on Windows?</summary>
+              <div className="faq-answer">
+                zsh-setup targets macOS and Linux natively. On Windows, use <strong>WSL2</strong> (Windows Subsystem for Linux) with Ubuntu — it works identically to the Linux setup.
+              </div>
+            </details>
+            <details className="faq-item">
+              <summary className="faq-question">What is the difference between NVM and fnm?</summary>
+              <div className="faq-answer">
+                <strong>fnm</strong> (Fast Node Manager) is a Rust-based alternative to NVM that is significantly faster. It supports <code>.nvmrc</code> auto-switching. Both are installed; <code>fnm</code> takes precedence if available.
+              </div>
+            </details>
+            <details className="faq-item">
+              <summary className="faq-question">How do I update zsh-setup after installing?</summary>
+              <div className="faq-answer">
+                Re-run the install command — it pulls the latest version, backs up old configs, and re-links everything. Your customizations (like <code>.p10k.zsh</code> prompt config) are preserved in backup files.
+              </div>
+            </details>
+            <details className="faq-item">
+              <summary className="faq-question">Why can't I see fancy icons / glyphs?</summary>
+              <div className="faq-answer">
+                You need a <strong>Nerd Font</strong> installed and selected in your terminal emulator. We recommend <strong>JetBrains Mono Nerd Font</strong>. Powerlevel10k will prompt you to install one on first run.
+              </div>
+            </details>
+            <details className="faq-item">
+              <summary className="faq-question">Is there a way to only install the essential tools?</summary>
+              <div className="faq-answer">
+                Yes! Run the installer with the <code>--minimal</code> flag to skip optional tools (fastfetch, lazygit, lazydocker, git-delta, tldr):<br />
+                <code>bash -c "$(curl -fsSL https://raw.githubusercontent.com/alivinshiva/zsh-setup/master/install.sh)" --minimal</code>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section id="changelog" className="section">
+          <p className="section-prompt"><span className="prompt-user">❯</span> tail CHANGELOG.md</p>
+          <h2 className="section-title">Changelog</h2>
+          <p className="section-sub">Recent updates and improvements.</p>
+          <div className="changelog">
+            <div className="changelog-entry">
+              <span className="changelog-version">v1.2.0</span>
+              <span className="changelog-date">2026-06-22</span>
+              <ul className="changelog-items">
+                <li>Added <code>history-substring-search</code> plugin — ↑/↓ to search history by typed prefix</li>
+                <li>Added <code>you-should-use</code> plugin — warns on missed aliases</li>
+                <li>Added <code>fnm</code> (Fast Node Manager) support</li>
+                <li>Added <code>mkcd</code>, <code>lg</code>, <code>ld</code> aliases</li>
+                <li>Added <code>--minimal</code> flag for lighter installations</li>
+                <li>Added <code>uninstall.sh</code> script</li>
+                <li>Showcase website: star counter, share button, screenshots, FAQ, comparison</li>
+              </ul>
+            </div>
+            <div className="changelog-entry">
+              <span className="changelog-version">v1.1.0</span>
+              <span className="changelog-date">2026-06-20</span>
+              <ul className="changelog-items">
+                <li>Showcase website with TUI aesthetic</li>
+                <li>Added CONTRIBUTING.md and TROUBLESHOOTING.md</li>
+                <li>git-delta configuration</li>
+              </ul>
+            </div>
+            <div className="changelog-entry">
+              <span className="changelog-version">v1.0.0</span>
+              <span className="changelog-date">2026-06-18</span>
+              <ul className="changelog-items">
+                <li>Initial release — Oh My Zsh + Powerlevel10k + core tools</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
         <section id="contribute" className="section section-alt">
           <p className="section-prompt"><span className="prompt-user">❯</span> git commit -m "feat: my contribution"</p>
           <h2 className="section-title">Contribute</h2>
@@ -477,6 +647,10 @@ function App() {
           <a href="https://github.com/alivinshiva/zsh-setup/blob/master/TROUBLESHOOTING.md" target="_blank" rel="noopener noreferrer">Troubleshooting</a>
           <span className="footer-divider">//</span>
           <a href="#usage">Usage Guide</a>
+          <span className="footer-divider">//</span>
+          <a href="#faq">FAQ</a>
+          <span className="footer-divider">//</span>
+          <a href="#changelog">Changelog</a>
           <span className="footer-divider">//</span>
           <span>MIT License</span>
         </div>
