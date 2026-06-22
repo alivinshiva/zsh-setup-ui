@@ -122,10 +122,10 @@ function App() {
             <a href="#features">Features</a>
             <a href="#testimonials">Testimonials</a>
             <a href="#install">Install</a>
-            <a href="#contribute">Contribute</a>
-            <a href="#support">Support</a>
             <a href="#usage">Usage</a>
             <a href="#troubleshooting">Troubleshooting</a>
+            <a href="#contribute">Contribute</a>
+            <a href="#support">Support</a>
           </div>
           <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
             {theme === 'light' ? (
@@ -214,58 +214,7 @@ function App() {
           </div>
         </section>
 
-        <section id="contribute" className="section section-alt">
-          <p className="section-prompt"><span className="prompt-user">❯</span> git commit -m "feat: my contribution"</p>
-          <h2 className="section-title">Contribute</h2>
-          <p className="section-sub">Help make zsh-setup better for everyone.</p>
-          <div className="contribute-grid">
-            <a href="https://github.com/alivinshiva/zsh-setup/blob/master/CONTRIBUTING.md" className="contribute-card" target="_blank" rel="noopener noreferrer">
-              <span className="contribute-icon">01</span>
-              <h3>Read the Guide</h3>
-              <p>Our contributing guide walks you through the process step by step.</p>
-            </a>
-            <a href="https://github.com/alivinshiva/zsh-setup/issues" className="contribute-card" target="_blank" rel="noopener noreferrer">
-              <span className="contribute-icon">02</span>
-              <h3>Find an Issue</h3>
-              <p>Browse open issues and pick one that matches your skills.</p>
-            </a>
-            <a href="https://github.com/alivinshiva/zsh-setup/fork" className="contribute-card" target="_blank" rel="noopener noreferrer">
-              <span className="contribute-icon">03</span>
-              <h3>Fork &amp; PR</h3>
-              <p>Fork the repo, make your changes, and open a pull request.</p>
-            </a>
-          </div>
-        </section>
-
-        <section id="support" className="section">
-          <p className="section-prompt"><span className="prompt-user">❯</span> help --support</p>
-          <h2 className="section-title">Support</h2>
-          <p className="section-sub">Star, share, or reach out — every bit helps.</p>
-          <div className="support-grid">
-            <a href="https://github.com/alivinshiva/zsh-setup" className="support-card" target="_blank" rel="noopener noreferrer">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <h3>Star on GitHub</h3>
-              <p>Show your support by starring the repository.</p>
-            </a>
-            <a href="https://github.com/alivinshiva/zsh-setup/issues" className="support-card" target="_blank" rel="noopener noreferrer">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              <h3>Report an Issue</h3>
-              <p>Found a bug? Let us know on GitHub Issues.</p>
-            </a>
-            <a href="https://github.com/alivinshiva/zsh-setup/discussions" className="support-card" target="_blank" rel="noopener noreferrer">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              <h3>Start a Discussion</h3>
-              <p>Ask questions, share setups, or suggest ideas.</p>
-            </a>
-            <a href="https://github.com/alivinshiva/zsh-setup" className="support-card" target="_blank" rel="noopener noreferrer">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-              <h3>Spread the Word</h3>
-              <p>Share zsh-setup with your team or on social media.</p>
-            </a>
-          </div>
-        </section>
-
-        <section id="usage" className="section">
+        <section id="usage" className="section section-alt">
           <p className="section-prompt"><span className="prompt-user">❯</span> man zsh-setup</p>
           <h2 className="section-title">Usage Guide</h2>
           <p className="section-sub">Everyday shortcuts and aliases to speed up your terminal workflow.</p>
@@ -325,7 +274,7 @@ function App() {
           </div>
         </section>
 
-        <section id="troubleshooting" className="section section-alt">
+        <section id="troubleshooting" className="section">
           <p className="section-prompt"><span className="prompt-user">❯</span> man troubleshooting</p>
           <h2 className="section-title">Troubleshooting</h2>
           <p className="section-sub">Quick fixes for common issues during or after installation.</p>
@@ -340,6 +289,57 @@ function App() {
                 <a href={f.link} className="fix-link" target="_blank" rel="noopener noreferrer">Full guide →</a>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section id="contribute" className="section section-alt">
+          <p className="section-prompt"><span className="prompt-user">❯</span> git commit -m "feat: my contribution"</p>
+          <h2 className="section-title">Contribute</h2>
+          <p className="section-sub">Help make zsh-setup better for everyone.</p>
+          <div className="contribute-grid">
+            <a href="https://github.com/alivinshiva/zsh-setup/blob/master/CONTRIBUTING.md" className="contribute-card" target="_blank" rel="noopener noreferrer">
+              <span className="contribute-icon">01</span>
+              <h3>Read the Guide</h3>
+              <p>Our contributing guide walks you through the process step by step.</p>
+            </a>
+            <a href="https://github.com/alivinshiva/zsh-setup/issues" className="contribute-card" target="_blank" rel="noopener noreferrer">
+              <span className="contribute-icon">02</span>
+              <h3>Find an Issue</h3>
+              <p>Browse open issues and pick one that matches your skills.</p>
+            </a>
+            <a href="https://github.com/alivinshiva/zsh-setup/fork" className="contribute-card" target="_blank" rel="noopener noreferrer">
+              <span className="contribute-icon">03</span>
+              <h3>Fork &amp; PR</h3>
+              <p>Fork the repo, make your changes, and open a pull request.</p>
+            </a>
+          </div>
+        </section>
+
+        <section id="support" className="section">
+          <p className="section-prompt"><span className="prompt-user">❯</span> help --support</p>
+          <h2 className="section-title">Support</h2>
+          <p className="section-sub">Star, share, or reach out — every bit helps.</p>
+          <div className="support-grid">
+            <a href="https://github.com/alivinshiva/zsh-setup" className="support-card" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <h3>Star on GitHub</h3>
+              <p>Show your support by starring the repository.</p>
+            </a>
+            <a href="https://github.com/alivinshiva/zsh-setup/issues" className="support-card" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <h3>Report an Issue</h3>
+              <p>Found a bug? Let us know on GitHub Issues.</p>
+            </a>
+            <a href="https://github.com/alivinshiva/zsh-setup/discussions" className="support-card" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <h3>Start a Discussion</h3>
+              <p>Ask questions, share setups, or suggest ideas.</p>
+            </a>
+            <a href="https://github.com/alivinshiva/zsh-setup" className="support-card" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              <h3>Spread the Word</h3>
+              <p>Share zsh-setup with your team or on social media.</p>
+            </a>
           </div>
         </section>
       </div>
