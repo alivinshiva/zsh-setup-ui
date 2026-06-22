@@ -113,6 +113,15 @@ const installLog = [
 function TerminalDemo() {
   const [visible, setVisible] = useState(0)
   const [restarting, setRestarting] = useState(false)
+  const [pos, setPos] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return { x: window.innerWidth - 600, y: window.innerHeight - 430 }
+    }
+    return { x: 200, y: 200 }
+  })
+  const drag = useRef(false)
+  const offset = useRef({ x: 0, y: 0 })
+  const el = useRef(null)
 
   useEffect(() => {
     if (visible < installLog.length) {
@@ -128,9 +137,46 @@ function TerminalDemo() {
     }
   }, [visible])
 
+  useEffect(() => {
+    const onMouseMove = (e) => {
+      if (!drag.current) return
+      setPos({
+        x: e.clientX - offset.current.x,
+        y: e.clientY - offset.current.y,
+      })
+    }
+    const onTouchMove = (e) => {
+      if (!drag.current) return
+      const t = e.touches[0]
+      setPos({
+        x: t.clientX - offset.current.x,
+        y: t.clientY - offset.current.y,
+      })
+    }
+    const onEnd = () => { drag.current = false }
+    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mouseup', onEnd)
+    window.addEventListener('touchmove', onTouchMove, { passive: true })
+    window.addEventListener('touchend', onEnd)
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('mouseup', onEnd)
+      window.removeEventListener('touchmove', onTouchMove)
+      window.removeEventListener('touchend', onEnd)
+    }
+  }, [])
+
+  const onDragStart = (e) => {
+    drag.current = true
+    const rect = el.current.getBoundingClientRect()
+    const clientX = e.clientX ?? e.touches[0].clientX
+    const clientY = e.clientY ?? e.touches[0].clientY
+    offset.current = { x: clientX - rect.left, y: clientY - rect.top }
+  }
+
   return (
-    <div className="terminal-demo">
-      <div className="terminal-demo-bar">
+    <div className="terminal-demo" ref={el} style={{ left: pos.x, top: pos.y }}>
+      <div className="terminal-demo-bar" onMouseDown={onDragStart} onTouchStart={onDragStart}>
         <span className="terminal-demo-dot" style={{ background: '#ff5f57' }} />
         <span className="terminal-demo-dot" style={{ background: '#ffbd2e' }} />
         <span className="terminal-demo-dot" style={{ background: '#28c840' }} />
@@ -280,7 +326,6 @@ function App() {
             <p>▸ Or clone &amp; run:</p>
             <pre className="install-code alt"><code>$ git clone https://github.com/alivinshiva/zsh-setup.git<br/>$ cd zsh-setup<br/>$ ./install.sh</code></pre>
           </div>
-          <TerminalDemo />
         </section>
 
         <section id="usage" className="section section-alt">
@@ -429,6 +474,7 @@ function App() {
         </div>
         <p className="footer-meta">crafted with &lt;3 for the terminal</p>
       </footer>
+      <TerminalDemo />
     </>
   )
 }
