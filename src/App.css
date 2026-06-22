@@ -343,12 +343,25 @@
 }
 
 .terminal-demo-body {
-  padding: 16px 18px;
+  padding: 14px 16px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  min-height: 300px;
+  gap: 4px;
+  height: 260px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
   transition: opacity 0.25s;
+}
+
+.terminal-demo-body::-webkit-scrollbar {
+  width: 5px;
+}
+.terminal-demo-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.terminal-demo-body::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
 }
 
 .terminal-demo-body.fade-out {

@@ -115,7 +115,7 @@ function TerminalDemo() {
   const [restarting, setRestarting] = useState(false)
   const [pos, setPos] = useState(() => {
     if (typeof window !== 'undefined') {
-      return { x: window.innerWidth - 600, y: window.innerHeight - 430 }
+      return { x: window.innerWidth - 480, y: window.innerHeight - 380 }
     }
     return { x: 200, y: 200 }
   })
@@ -166,6 +166,14 @@ function TerminalDemo() {
     }
   }, [])
 
+  const scrollRef = useRef(null)
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight
+    }
+  }, [visible])
+
   const onDragStart = (e) => {
     drag.current = true
     const rect = el.current.getBoundingClientRect()
@@ -182,7 +190,7 @@ function TerminalDemo() {
         <span className="terminal-demo-dot" style={{ background: '#28c840' }} />
         <span className="terminal-demo-title">install.sh</span>
       </div>
-      <div className={`terminal-demo-body ${restarting ? 'fade-out' : ''}`}>
+      <div className={`terminal-demo-body ${restarting ? 'fade-out' : ''}`} ref={scrollRef}>
         {installLog.slice(0, visible).map((line, i) => (
           <div key={i} className={`terminal-demo-line line-${line.type}`}>
             <span className="terminal-demo-prefix">
