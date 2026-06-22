@@ -28,6 +28,17 @@ const features = [
   { title: 'NVM', desc: 'Node Version Manager pre-integrated. Switch Node versions seamlessly.' },
 ]
 
+const fixes = [
+  { problem: 'Setup overwrote my config', solution: 'Restore from backup: `mv ~/.zshrc.backup ~/.zshrc` and `mv ~/.p10k.zsh.backup ~/.p10k.zsh`.', link: 'https://github.com/alivinshiva/zsh-setup/blob/master/TROUBLESHOOTING.md#my-existing-zshrc--p10kzsh-got-overwritten' },
+  { problem: 'Command not found: eza / bat / fd', solution: 'Tools may not be installed. Run `brew install` on macOS or `sudo apt install` on Linux. On Linux, `bat` is named `batcat` and `fd` is `fdfind`.', link: 'https://github.com/alivinshiva/zsh-setup/blob/master/TROUBLESHOOTING.md#command-not-found-eza--bat--fd--fastfetch' },
+  { problem: 'Powerlevel10k prompt not showing', solution: 'Ensure the theme is cloned to `~/.oh-my-zsh/custom/themes/powerlevel10k` and you have a Nerd Font installed in your terminal.', link: 'https://github.com/alivinshiva/zsh-setup/blob/master/TROUBLESHOOTING.md#powerlevel10k-prompt-not-showing' },
+  { problem: 'Syntax highlighting / suggestions not working', solution: 'Install `zsh-syntax-highlighting` and `zsh-autosuggestions` via brew or apt. The source lines must be at the end of `.zshrc`.', link: 'https://github.com/alivinshiva/zsh-setup/blob/master/TROUBLESHOOTING.md#zsh-syntax-highlighting-not-working' },
+  { problem: 'NVM not working', solution: 'Install NVM with `curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash` then restart your terminal.', link: 'https://github.com/alivinshiva/zsh-setup/blob/master/TROUBLESHOOTING.md#nvm-not-working' },
+  { problem: 'fzf keybindings not working', solution: 'Install fzf via brew/apt. Key binding files must exist at `/usr/share/fzf/` (Linux) or `/opt/homebrew/opt/fzf/` (macOS).', link: 'https://github.com/alivinshiva/zsh-setup/blob/master/TROUBLESHOOTING.md#fzf-key-bindings-not-working-ctrlr-ctrlt-altc' },
+  { problem: 'Oh My Zsh not installed', solution: 'Run the installer: `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended`', link: 'https://github.com/alivinshiva/zsh-setup/blob/master/TROUBLESHOOTING.md#oh-my-zsh-not-installed' },
+  { problem: 'git-delta not showing diffs', solution: 'Install `git-delta` via brew/apt, then set `git config --global core.pager "delta"`.', link: 'https://github.com/alivinshiva/zsh-setup/blob/master/TROUBLESHOOTING.md#git-delta-not-showing-syntax-highlighted-diffs' },
+]
+
 const testimonials = [
   { quote: 'Set up my entire dev environment in under 2 minutes. The aliases alone saved me hours of config tweaking.', author: 'Alex M.', role: 'Backend Engineer' },
   { quote: 'Switched from macOS to Linux and my terminal felt identical. Cross-platform support is a lifesaver.', author: 'Priya K.', role: 'Full-Stack Developer' },
@@ -70,6 +81,7 @@ function App() {
             <a href="#install">Install</a>
             <a href="#contribute">Contribute</a>
             <a href="#support">Support</a>
+            <a href="#troubleshooting">Troubleshooting</a>
           </div>
           <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
             {theme === 'light' ? (
@@ -208,6 +220,24 @@ function App() {
             </a>
           </div>
         </section>
+
+        <section id="troubleshooting" className="section section-alt">
+          <p className="section-prompt"><span className="prompt-user">❯</span> man troubleshooting</p>
+          <h2 className="section-title">Troubleshooting</h2>
+          <p className="section-sub">Quick fixes for common issues during or after installation.</p>
+          <div className="fixes-grid">
+            {fixes.map((f, i) => (
+              <div key={i} className="fix-card">
+                <div className="fix-header">
+                  <span className="fix-number">{String(i + 1).padStart(2, '0')}</span>
+                  <h3 className="fix-problem">{f.problem}</h3>
+                </div>
+                <p className="fix-solution">{f.solution}</p>
+                <a href={f.link} className="fix-link" target="_blank" rel="noopener noreferrer">Full guide →</a>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
 
       <footer className="footer">
@@ -217,6 +247,8 @@ function App() {
           <a href="https://github.com/alivinshiva/zsh-setup" target="_blank" rel="noopener noreferrer">GitHub</a>
           <span className="footer-divider">//</span>
           <a href="https://github.com/alivinshiva/zsh-setup/blob/master/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">Contributing</a>
+          <span className="footer-divider">//</span>
+          <a href="https://github.com/alivinshiva/zsh-setup/blob/master/TROUBLESHOOTING.md" target="_blank" rel="noopener noreferrer">Troubleshooting</a>
           <span className="footer-divider">//</span>
           <span>MIT License</span>
         </div>

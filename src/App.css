@@ -457,6 +457,68 @@
   line-height: 1.6;
 }
 
+/* ── Troubleshooting ──────────────────────────────────────────── */
+.fixes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 16px;
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.fix-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.15s;
+}
+.fix-card:hover {
+  border-color: var(--text-muted);
+}
+
+.fix-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fix-number {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  flex-shrink: 0;
+}
+
+.fix-problem {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.fix-solution {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.fix-link {
+  font-size: 0.75rem;
+  color: var(--text);
+  font-weight: 500;
+  align-self: flex-start;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+.fix-link:hover {
+  border-bottom-color: var(--text);
+}
+
 /* ── Footer ───────────────────────────────────────────────────── */
 .footer {
   position: relative;
@@ -525,7 +587,8 @@
   .grid,
   .testimonials,
   .contribute-grid,
-  .support-grid {
+  .support-grid,
+  .fixes-grid {
     grid-template-columns: 1fr;
   }
 }
