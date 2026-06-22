@@ -39,6 +39,35 @@ const fixes = [
   { problem: 'git-delta not showing diffs', solution: 'Install `git-delta` via brew/apt, then set `git config --global core.pager "delta"`.', link: 'https://github.com/alivinshiva/zsh-setup/blob/master/TROUBLESHOOTING.md#git-delta-not-showing-syntax-highlighted-diffs' },
 ]
 
+const historyShortcuts = [
+  { cmd: '!!', desc: 'Last command', example: '`sudo !!` — re-run previous command with sudo' },
+  { cmd: '!$', desc: 'Last argument of previous command', example: '`mkdir foo && cd !$` — cd into the dir you just created' },
+  { cmd: '!^', desc: 'First argument of previous command', example: '`!^` — grabs the first word of the last command' },
+  { cmd: '!*', desc: 'All arguments of previous command', example: '`echo !*` — prints all args from last command' },
+  { cmd: '!n', desc: 'Run the nth command from history', example: '`!42` — re-run command #42 from `history`' },
+  { cmd: '!-n', desc: 'Run the command n lines back', example: '`!-3` — re-run the command 3 lines ago' },
+  { cmd: '^old^new', desc: 'Quick substitution in last command', example: '`^foo^bar` — re-run last command replacing foo with bar' },
+  { cmd: 'history', desc: 'Show command history', example: '`history | grep docker` — find all docker commands you ran' },
+]
+
+const customAliases = [
+  { alias: 'g', cmd: 'git', desc: 'Git shortcut' },
+  { alias: 'd', cmd: 'docker', desc: 'Docker shortcut' },
+  { alias: 'n', cmd: 'nvim . (or nvim <file>)', desc: 'Open neovim; with no args opens current dir' },
+  { alias: 'ls', cmd: 'eza -lh --group-dirs-first --icons --classify', desc: 'List files with icons, sizes, permissions' },
+  { alias: 'lsa', cmd: 'ls -a', desc: 'List all files (including hidden)' },
+  { alias: 'lt', cmd: 'eza --tree --level=2 --long --icons --git', desc: 'Directory tree view (2 levels deep)' },
+  { alias: 'lta', cmd: 'lt -a', desc: 'Tree view including hidden files' },
+  { alias: 'ff', cmd: 'fzf --preview "bat --style=numbers --color=always {}"', desc: 'Fuzzy find files with syntax-highlighted preview' },
+  { alias: 'cd', cmd: 'z (zoxide)', desc: 'Smart cd — jump to any directory from anywhere' },
+  { alias: '..', cmd: 'cd ..', desc: 'Go up one directory' },
+  { alias: '...', cmd: 'cd ../..', desc: 'Go up two directories' },
+  { alias: '....', cmd: 'cd ../../..', desc: 'Go up three directories' },
+  { alias: 'gcm', cmd: 'git commit -m', desc: 'Quick git commit with message' },
+  { alias: 'gcam', cmd: 'git commit -a -m', desc: 'Stage all + commit with message' },
+  { alias: 'gcad', cmd: 'git commit -a --amend', desc: 'Stage all + amend last commit' },
+]
+
 const testimonials = [
   { quote: 'Set up my entire dev environment in under 2 minutes. The aliases alone saved me hours of config tweaking.', author: 'Alex M.', role: 'Backend Engineer' },
   { quote: 'Switched from macOS to Linux and my terminal felt identical. Cross-platform support is a lifesaver.', author: 'Priya K.', role: 'Full-Stack Developer' },
@@ -81,6 +110,7 @@ function App() {
             <a href="#install">Install</a>
             <a href="#contribute">Contribute</a>
             <a href="#support">Support</a>
+            <a href="#usage">Usage</a>
             <a href="#troubleshooting">Troubleshooting</a>
           </div>
           <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
@@ -221,6 +251,48 @@ function App() {
           </div>
         </section>
 
+        <section id="usage" className="section">
+          <p className="section-prompt"><span className="prompt-user">❯</span> man zsh-setup</p>
+          <h2 className="section-title">Usage Guide</h2>
+          <p className="section-sub">Everyday shortcuts and aliases to speed up your terminal workflow.</p>
+
+          <div className="usage-category">
+            <h3 className="usage-category-title">History Shortcuts</h3>
+            <div className="usage-table">
+              <div className="usage-row usage-head">
+                <span className="usage-cell cmd">Shortcut</span>
+                <span className="usage-cell desc">What it does</span>
+                <span className="usage-cell example">Example</span>
+              </div>
+              {historyShortcuts.map((s, i) => (
+                <div key={i} className="usage-row">
+                  <span className="usage-cell cmd"><code>{s.cmd}</code></span>
+                  <span className="usage-cell desc">{s.desc}</span>
+                  <span className="usage-cell example">{s.example}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="usage-category">
+            <h3 className="usage-category-title">Custom Aliases</h3>
+            <div className="usage-table">
+              <div className="usage-row usage-head">
+                <span className="usage-cell cmd">Alias</span>
+                <span className="usage-cell desc">Expands to</span>
+                <span className="usage-cell example">Description</span>
+              </div>
+              {customAliases.map((a, i) => (
+                <div key={i} className="usage-row">
+                  <span className="usage-cell cmd"><code>{a.alias}</code></span>
+                  <span className="usage-cell desc"><code>{a.cmd}</code></span>
+                  <span className="usage-cell example">{a.desc}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section id="troubleshooting" className="section section-alt">
           <p className="section-prompt"><span className="prompt-user">❯</span> man troubleshooting</p>
           <h2 className="section-title">Troubleshooting</h2>
@@ -249,6 +321,8 @@ function App() {
           <a href="https://github.com/alivinshiva/zsh-setup/blob/master/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">Contributing</a>
           <span className="footer-divider">//</span>
           <a href="https://github.com/alivinshiva/zsh-setup/blob/master/TROUBLESHOOTING.md" target="_blank" rel="noopener noreferrer">Troubleshooting</a>
+          <span className="footer-divider">//</span>
+          <a href="#usage">Usage Guide</a>
           <span className="footer-divider">//</span>
           <span>MIT License</span>
         </div>

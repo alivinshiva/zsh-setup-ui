@@ -457,6 +457,102 @@
   line-height: 1.6;
 }
 
+/* ── Usage Guide ──────────────────────────────────────────────── */
+.usage-category {
+  max-width: 800px;
+  margin: 0 auto 48px;
+  text-align: left;
+}
+.usage-category:last-child {
+  margin-bottom: 0;
+}
+
+.usage-category-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-left: 4px;
+}
+
+.usage-table {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.usage-row {
+  display: grid;
+  grid-template-columns: 140px 1fr 1.4fr;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+}
+.usage-row:last-child {
+  border-bottom: none;
+}
+.usage-row:hover {
+  background: var(--btn-hover-bg);
+}
+
+.usage-head {
+  background: var(--code-header);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--text-muted);
+}
+.usage-head:hover {
+  background: var(--code-header);
+}
+
+.usage-cell {
+  padding: 10px 14px;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+}
+
+.usage-cell.cmd {
+  font-family: 'JetBrains Mono', monospace;
+  border-right: 1px solid var(--border);
+}
+
+.usage-cell.desc {
+  border-right: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.usage-cell.example {
+  color: var(--text-muted);
+}
+
+.usage-row code {
+  font-size: 0.78rem;
+  color: var(--text);
+}
+
+.usage-head .usage-cell {
+  color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+  .usage-row {
+    grid-template-columns: 1fr;
+  }
+  .usage-cell.cmd,
+  .usage-cell.desc {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 8px 14px;
+  }
+  .usage-cell.example {
+    padding: 8px 14px;
+  }
+}
+
 /* ── Troubleshooting ──────────────────────────────────────────── */
 .fixes-grid {
   display: grid;
@@ -590,5 +686,8 @@
   .support-grid,
   .fixes-grid {
     grid-template-columns: 1fr;
+  }
+  .section-prompt {
+    font-size: 11px;
   }
 }
