@@ -299,6 +299,105 @@
   color: var(--text-muted);
 }
 
+/* ── Terminal Demo ────────────────────────────────────────────── */
+.terminal-demo {
+  max-width: 560px;
+  margin: 32px auto 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0d0d0d;
+  text-align: left;
+  font-size: 0.78rem;
+}
+
+.terminal-demo-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: #1a1a1a;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.terminal-demo-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.terminal-demo-title {
+  margin-left: auto;
+  font-size: 11px;
+  color: #666;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.terminal-demo-body {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-height: 300px;
+  transition: opacity 0.25s;
+}
+
+.terminal-demo-body.fade-out {
+  opacity: 0;
+}
+
+.terminal-demo-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.6;
+  animation: terminal-fade-in 0.2s ease-out;
+}
+
+@keyframes terminal-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.terminal-demo-prefix {
+  flex-shrink: 0;
+  width: 14px;
+  text-align: center;
+}
+
+.prompt-sign { color: #44aaff; font-weight: 600; }
+.info-sign   { color: #8a8a8a; }
+.ok-sign     { color: #00ff88; }
+.done-sign   { color: #ffd700; }
+
+.line-cmd  { color: #e5e5e5; }
+.line-info { color: #8a8a8a; }
+.line-ok   { color: #ccc; }
+.line-done { color: #ffd700; font-weight: 600; }
+
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+  background: #44aaff;
+  animation: blink 1s step-end infinite;
+  margin-top: 7px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+[data-theme="light"] .terminal-demo {
+  border-color: #333;
+}
+[data-theme="light"] .terminal-demo-bar {
+  background: #1a1a1a;
+  border-bottom-color: #333;
+}
+
 /* ── Installation ─────────────────────────────────────────────── */
 .install-block {
   max-width: 620px;

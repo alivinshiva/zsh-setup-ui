@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 
 const chars = ['$', '_', '>', '~', '#', '%', '&', '|', '/', '\\', '=', '@', '!', '?', '*']
@@ -87,6 +87,74 @@ const testimonials = [
   { quote: 'Switched from macOS to Linux and my terminal felt identical. Cross-platform support is a lifesaver.', author: 'Priya K.', role: 'Full-Stack Developer' },
   { quote: 'The eza + bat + fzf combination is incredible. I use ff (fzf preview) dozens of times a day now.', author: 'Jordan T.', role: 'DevOps Engineer' },
 ]
+
+const installLog = [
+  { text: 'Cloning repository...', type: 'cmd' },
+  { text: '→ https://github.com/alivinshiva/zsh-setup.git', type: 'info' },
+  { text: '✓ Repository cloned', type: 'ok' },
+  { text: 'Installing Oh My Zsh...', type: 'cmd' },
+  { text: '→ ohmyzsh/ohmyzsh', type: 'info' },
+  { text: '✓ Oh My Zsh installed', type: 'ok' },
+  { text: 'Installing Powerlevel10k...', type: 'cmd' },
+  { text: '→ romkatv/powerlevel10k', type: 'info' },
+  { text: '✓ Powerlevel10k theme installed', type: 'ok' },
+  { text: 'Installing CLI tools...', type: 'cmd' },
+  { text: '→ eza bat fd fzf fastfetch zoxide', type: 'info' },
+  { text: '✓ Tools installed', type: 'ok' },
+  { text: 'Linking dotfiles...', type: 'cmd' },
+  { text: '→ .zshrc → ~/.zshrc', type: 'info' },
+  { text: '→ .p10k.zsh → ~/.p10k.zsh', type: 'info' },
+  { text: '✓ Dotfiles linked', type: 'ok' },
+  { text: 'Configuring git-delta...', type: 'cmd' },
+  { text: '✓ git-delta configured as default pager', type: 'ok' },
+  { text: '✅ Done! Restart your terminal or run: source ~/.zshrc', type: 'done' },
+]
+
+function TerminalDemo() {
+  const [visible, setVisible] = useState(0)
+  const [restarting, setRestarting] = useState(false)
+
+  useEffect(() => {
+    if (visible < installLog.length) {
+      const delay = installLog[visible].type === 'info' ? 200 : 400
+      const t = setTimeout(() => setVisible(v => v + 1), delay)
+      return () => clearTimeout(t)
+    } else {
+      const t = setTimeout(() => {
+        setRestarting(true)
+        setTimeout(() => { setVisible(0); setRestarting(false) }, 300)
+      }, 3000)
+      return () => clearTimeout(t)
+    }
+  }, [visible])
+
+  return (
+    <div className="terminal-demo">
+      <div className="terminal-demo-bar">
+        <span className="terminal-demo-dot" style={{ background: '#ff5f57' }} />
+        <span className="terminal-demo-dot" style={{ background: '#ffbd2e' }} />
+        <span className="terminal-demo-dot" style={{ background: '#28c840' }} />
+        <span className="terminal-demo-title">install.sh</span>
+      </div>
+      <div className={`terminal-demo-body ${restarting ? 'fade-out' : ''}`}>
+        {installLog.slice(0, visible).map((line, i) => (
+          <div key={i} className={`terminal-demo-line line-${line.type}`}>
+            <span className="terminal-demo-prefix">
+              {line.type === 'cmd' && <span className="prompt-sign">$</span>}
+              {line.type === 'info' && <span className="info-sign">▸</span>}
+              {line.type === 'ok' && <span className="ok-sign">✓</span>}
+              {line.type === 'done' && <span className="done-sign">◆</span>}
+            </span>
+            <span>{line.text}</span>
+          </div>
+        ))}
+        {visible <= installLog.length && (
+          <span className="terminal-cursor" />
+        )}
+      </div>
+    </div>
+  )
+}
 
 function App() {
   const [theme, setTheme] = useState(() => {
@@ -212,6 +280,7 @@ function App() {
             <p>▸ Or clone &amp; run:</p>
             <pre className="install-code alt"><code>$ git clone https://github.com/alivinshiva/zsh-setup.git<br/>$ cd zsh-setup<br/>$ ./install.sh</code></pre>
           </div>
+          <TerminalDemo />
         </section>
 
         <section id="usage" className="section section-alt">
