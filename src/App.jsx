@@ -68,6 +68,20 @@ const customAliases = [
   { alias: 'gcad', cmd: 'git commit -a --amend', desc: 'Stage all + amend last commit' },
 ]
 
+const navShortcuts = [
+  { cmd: '~', desc: 'Home directory', example: '`cd ~` or just `~` — go to $HOME' },
+  { cmd: '-', desc: 'Previous directory', example: '`cd -` — toggle back to last directory' },
+  { cmd: '~+', desc: 'Current working directory', example: '`echo ~+` — prints absolute path of pwd' },
+  { cmd: '~-', desc: 'Previous working directory', example: '`cd ~-` — same as `cd -`' },
+  { cmd: 'pushd <dir>', desc: 'Go to dir and push current onto stack', example: '`pushd /tmp` — saves current dir, goes to /tmp' },
+  { cmd: 'popd', desc: 'Pop directory stack and go there', example: '`popd` — return to the dir saved by pushd' },
+  { cmd: 'dirs', desc: 'Show directory stack', example: '`dirs -v` — numbered list of stacked directories' },
+  { cmd: '~<TAB>', desc: 'Tab-complete user/visited dirs', example: '`cd ~<TAB>` — interactive completion of recent dirs' },
+  { cmd: 'z <fragment>', desc: 'zoxide: jump to a matching dir', example: '`z doc` — cd to ~/Documents from anywhere' },
+  { cmd: 'zi <fragment>', desc: 'zoxide: interactive selection', example: '`zi pro` — fuzzy pick from matching dirs' },
+  { cmd: 'zoxide query <fragment>', desc: 'Print matching path (no cd)', example: '`zoxide query doc` — prints full path without changing dir' },
+]
+
 const testimonials = [
   { quote: 'Set up my entire dev environment in under 2 minutes. The aliases alone saved me hours of config tweaking.', author: 'Alex M.', role: 'Backend Engineer' },
   { quote: 'Switched from macOS to Linux and my terminal felt identical. Cross-platform support is a lifesaver.', author: 'Priya K.', role: 'Full-Stack Developer' },
@@ -265,6 +279,24 @@ function App() {
                 <span className="usage-cell example">Example</span>
               </div>
               {historyShortcuts.map((s, i) => (
+                <div key={i} className="usage-row">
+                  <span className="usage-cell cmd"><code>{s.cmd}</code></span>
+                  <span className="usage-cell desc">{s.desc}</span>
+                  <span className="usage-cell example">{s.example}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="usage-category">
+            <h3 className="usage-category-title">Navigation Shortcuts</h3>
+            <div className="usage-table">
+              <div className="usage-row usage-head">
+                <span className="usage-cell cmd">Shortcut</span>
+                <span className="usage-cell desc">What it does</span>
+                <span className="usage-cell example">Example</span>
+              </div>
+              {navShortcuts.map((s, i) => (
                 <div key={i} className="usage-row">
                   <span className="usage-cell cmd"><code>{s.cmd}</code></span>
                   <span className="usage-cell desc">{s.desc}</span>
