@@ -5,15 +5,16 @@ const chars = ['$', '_', '>', '~', '#', '%', '&', '|', '/', '\\', '=', '@', '!',
 const colors = ['#00d4ff', '#00ff88', '#ffd700', '#ff66cc', '#ff8844', '#aa66ff', '#ff4466', '#44aaff', '#66ff99', '#ffaa33', '#33ccff', '#ff5599', '#88ff66', '#dd88ff', '#ff9966']
 const anims = ['float-up', 'float-down', 'float-drift-l', 'float-drift-r', 'float-diag']
 
-const floating = chars.map((c, i) => ({
+const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+const floating = chars.slice(0, isMobile ? 5 : 15).map((c, i) => ({
   char: c,
   color: colors[i],
-  left: Math.random() * 85 + 5,
+  left: Math.random() * 80 + 5,
   top: Math.random() * 100,
   anim: anims[Math.floor(Math.random() * anims.length)],
   delay: Math.random() * 14,
   duration: Math.random() * 18 + 14,
-  size: Math.random() * 12 + 12,
+  size: Math.random() * (isMobile ? 8 : 12) + (isMobile ? 10 : 12),
 }))
 
 const features = [
@@ -238,6 +239,7 @@ function App() {
     }
     return 'dark'
   })
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
@@ -250,6 +252,19 @@ function App() {
     navigator.clipboard.writeText('bash -c "$(curl -fsSL https://raw.githubusercontent.com/alivinshiva/zsh-setup/master/install.sh)"')
   }
 
+  const closeMenu = () => setMenuOpen(false)
+
+  const navItems = [
+    { href: '#features', label: 'Features' },
+    { href: '#testimonials', label: 'Testimonials' },
+    { href: '#screenshots', label: 'Screenshots' },
+    { href: '#install', label: 'Install' },
+    { href: '#usage', label: 'Usage' },
+    { href: '#troubleshooting', label: 'Troubleshooting' },
+    { href: '#faq', label: 'FAQ' },
+    { href: '#contribute', label: 'Contribute' },
+  ]
+
   return (
     <>
       <div className="terminal-bg" aria-hidden="true">
@@ -260,24 +275,29 @@ function App() {
 
       <nav className="navbar">
         <div className="navbar-inner">
-          <a href="#hero" className="navbar-brand">zsh-setup</a>
+          <a href="#hero" className="navbar-brand" onClick={closeMenu}>zsh-setup</a>
           <div className="navbar-links">
-            <a href="#features">Features</a>
-            <a href="#testimonials">Testimonials</a>
-            <a href="#screenshots">Screenshots</a>
-            <a href="#install">Install</a>
-            <a href="#usage">Usage</a>
-            <a href="#troubleshooting">Troubleshooting</a>
-            <a href="#faq">FAQ</a>
-            <a href="#contribute">Contribute</a>
+            {navItems.map(({ href, label }) => (
+              <a key={href} href={href}>{label}</a>
+            ))}
           </div>
-          <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
-            {theme === 'light' ? (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-            ) : (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            )}
-          </button>
+          <div className="navbar-right">
+            <button className={`hamburger ${menuOpen ? 'open' : ''}`} onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
+              <span /><span /><span />
+            </button>
+            <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+              {theme === 'light' ? (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+              ) : (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+              )}
+            </button>
+          </div>
+        </div>
+        <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
+          {navItems.map(({ href, label }) => (
+            <a key={href} href={href} onClick={closeMenu}>{label}</a>
+          ))}
         </div>
       </nav>
 

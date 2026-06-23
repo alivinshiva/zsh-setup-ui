@@ -33,6 +33,7 @@
   letter-spacing: 0.5px;
   text-transform: uppercase;
   color: var(--text);
+  flex-shrink: 0;
 }
 .navbar-brand:hover {
   opacity: 0.7;
@@ -50,8 +51,75 @@
   border-radius: 6px;
   transition: all 0.15s;
   letter-spacing: 0.2px;
+  white-space: nowrap;
 }
 .navbar-links a:hover {
+  color: var(--text);
+  background: var(--btn-hover-bg);
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* ── Hamburger ─────────────────────────────────────────── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 7px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.hamburger:hover {
+  border-color: var(--gray-400);
+  background: var(--btn-hover-bg);
+}
+.hamburger span {
+  display: block;
+  width: 16px;
+  height: 2px;
+  background: var(--text-muted);
+  border-radius: 1px;
+  transition: all 0.2s;
+}
+.hamburger.open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* ── Mobile Menu ───────────────────────────────────────── */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 16px 16px;
+  gap: 2px;
+}
+.mobile-menu.open {
+  display: flex;
+}
+.mobile-menu a {
+  font-size: 13px;
+  color: var(--text-muted);
+  padding: 10px 14px;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+.mobile-menu a:hover {
   color: var(--text);
   background: var(--btn-hover-bg);
 }
@@ -1007,14 +1075,22 @@
 }
 
 /* ── Responsive ───────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .navbar-links a {
-    font-size: 11px;
-    padding: 5px 8px;
-  }
-  .navbar-links a:nth-child(n+5) {
+@media (max-width: 900px) {
+  .navbar-links {
     display: none;
   }
+  .hamburger {
+    display: flex;
+  }
+  .layout {
+    padding: 0 16px;
+  }
+  .navbar-inner {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 768px) {
   .terminal-demo {
     display: none !important;
   }
@@ -1024,28 +1100,41 @@
   .hero-actions {
     flex-direction: column;
     align-items: stretch;
-    padding: 0 20px;
+    padding: 0;
   }
   .hero-actions .btn {
     justify-content: center;
   }
+  .usage-row {
+    grid-template-columns: 1fr !important;
+  }
+  .usage-cell.cmd,
+  .usage-cell.desc {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+    padding: 8px 14px;
+  }
+  .usage-cell.example {
+    padding: 8px 14px;
+  }
+  .install-block {
+    max-width: 100%;
+  }
+  .install-alt .install-code {
+    font-size: 0.7rem;
+    word-break: break-all;
+  }
 }
 
 @media (max-width: 640px) {
-  .navbar-links {
-    gap: 2px;
-  }
-  .navbar-links a:nth-child(n+4) {
-    display: none;
-  }
   .hero {
-    padding: 70px 0 60px;
+    padding: 60px 0 50px;
   }
   .section {
-    padding: 56px 0;
+    padding: 48px 0;
   }
   .section-alt {
-    padding: 56px 20px;
+    padding: 48px 16px;
   }
   .grid,
   .testimonials,
@@ -1063,29 +1152,50 @@
     gap: 6px;
   }
   .hero-title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
   .hero-desc {
-    font-size: 0.85rem;
-    padding: 0 16px;
+    font-size: 0.82rem;
+    padding: 0;
   }
   .install-code {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     padding: 12px 14px;
     word-break: break-all;
   }
+  .hero-actions {
+    padding: 0;
+  }
   .faq-list {
-    padding: 0 4px;
+    padding: 0;
   }
   .faq-question {
     font-size: 0.8rem;
     padding: 12px 14px;
   }
   .changelog {
-    padding: 0 8px;
+    padding: 0 4px;
+  }
+  .changelog-version {
+    font-size: 0.8rem;
+  }
+  .changelog-date {
+    font-size: 0.65rem;
+  }
+  .changelog-items li {
+    font-size: 0.72rem;
   }
   .footer-inner {
-    font-size: 0.72rem;
-    gap: 6px;
+    font-size: 0.68rem;
+    gap: 4px;
+  }
+  .footer {
+    padding: 32px 16px 28px;
+  }
+  .fixes-grid {
+    grid-template-columns: 1fr;
+  }
+  .screenshot-preview {
+    font-size: 0.6rem;
   }
 }
