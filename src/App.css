@@ -842,6 +842,7 @@
   font-size: 0.7rem;
   line-height: 1.7;
   border-bottom: 1px solid var(--card-border);
+  overflow-x: auto;
 }
 
 .screenshot-bar {
@@ -1043,6 +1044,8 @@
   flex-direction: column;
   gap: 10px;
   transition: border-color 0.15s;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 .fix-card:hover {
   border-color: var(--text-muted);
@@ -1072,6 +1075,12 @@
   font-size: 0.78rem;
   color: var(--text-muted);
   line-height: 1.7;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.fix-solution code {
+  word-break: break-all;
+  font-size: 0.73rem;
 }
 
 .fix-link {
